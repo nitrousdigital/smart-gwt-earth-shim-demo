@@ -131,7 +131,8 @@ public class SmartGwtEarthShimDemo implements EntryPoint {
     	final com.smartgwt.client.widgets.Window window = new com.smartgwt.client.widgets.Window();
     	com.smartgwt.client.widgets.Label label 
     		= new com.smartgwt.client.widgets.Label(  
-    			"<b>Window test</b><br>This window is visible since we have an IFrame (shim) between the Window and the Google Earth Plugin.");  
+    			"<b>Window test</b><br>This window is visible since we have an IFrame (shim) between the Window and the Google Earth Plugin.<br>" +
+    			"View source code <a href=\"http://code.google.com/p/smart-gwt-earth-shim-demo/source/browse/trunk/src/com/nitrous/earth/smartgwt/shim/demo/client/SmartGwtEarthShimDemo.java\" target=\"new\">here</a>");  
 	     label.setHeight100();  
 	     label.setPadding(5);  
 	     label.setValign(com.smartgwt.client.types.VerticalAlignment.TOP);  
