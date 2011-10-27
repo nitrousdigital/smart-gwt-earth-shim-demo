@@ -8,7 +8,7 @@ import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.nitrous.gwt.earth.client.api.GELayerId;
 import com.nitrous.gwt.earth.client.api.GEPlugin;
@@ -48,7 +48,7 @@ public class SmartGwtEarthShimDemo implements EntryPoint {
          
         // begin loading the Google Earth Plug-in
          DockLayoutPanel layout = new DockLayoutPanel(Unit.PX);
-         layout.addNorth(new Label("SmartGWT/Google Earth Shim Demo. You should see a SmartGWT window displayed over the Google Earth map below. If not, your browser is not supported by this workaround."), 30);
+         layout.addNorth(new HTML("SmartGWT/Google Earth Shim Demo. You should see a SmartGWT window displayed over the Google Earth map below. If not, your browser is not supported by this workaround.<br/>Source code here: <a href='http://code.google.com/p/smart-gwt-earth-shim-demo/'>http://code.google.com/p/smart-gwt-earth-shim-demo/</a>"), 40);
          layout.add(earth);
          RootLayoutPanel.get().add(layout);
          earth.init();
