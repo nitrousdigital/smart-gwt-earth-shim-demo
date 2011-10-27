@@ -5,19 +5,17 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.IFrameElement;
-import com.google.gwt.user.client.Timer;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.nitrous.gwt.earth.client.api.GEHtmlStringBalloon;
 import com.nitrous.gwt.earth.client.api.GELayerId;
 import com.nitrous.gwt.earth.client.api.GEPlugin;
 import com.nitrous.gwt.earth.client.api.GEPluginReadyListener;
 import com.nitrous.gwt.earth.client.api.GoogleEarthWidget;
 import com.nitrous.gwt.earth.client.api.KmlAltitudeMode;
 import com.nitrous.gwt.earth.client.api.KmlLookAt;
-import com.nitrous.gwt.earth.client.api.KmlObject;
-import com.nitrous.gwt.earth.client.api.KmlPlacemark;
-import com.nitrous.gwt.earth.client.api.KmlPoint;
 import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.CloseClientEvent;
 
@@ -47,10 +45,13 @@ public class SmartGwtEarthShimDemo implements EntryPoint {
            
          earth.setWidth("100%");
          earth.setHeight("100%");
-         RootLayoutPanel.get().add(earth);
-
+         
         // begin loading the Google Earth Plug-in
-        earth.init();
+         DockLayoutPanel layout = new DockLayoutPanel(Unit.PX);
+         layout.addNorth(new Label("SmartGWT/Google Earth Shim Demo. You should see a SmartGWT window displayed over the Google Earth map below. If not, your browser is not supported by this workaround."), 30);
+         layout.add(earth);
+         RootLayoutPanel.get().add(layout);
+         earth.init();
     }
      
     /**
@@ -68,57 +69,15 @@ public class SmartGwtEarthShimDemo implements EntryPoint {
         ge.enableLayer(GELayerId.LAYER_TERRAIN, true);
         ge.enableLayer(GELayerId.LAYER_TREES, true);
 
-        // show an over-view pane
-        ge.getOptions().setOverviewMapVisibility(true);
-
-        // plot a placemark
-    	final String placemarkId = "MyPlacemark1";
-        final KmlPlacemark placemark = ge.createPlacemark(placemarkId);
-		KmlPoint kmlPoint = ge.createPoint("");
-		kmlPoint.setLatLng(34.73D, -86.59D);
-		kmlPoint.setAltitudeMode(KmlAltitudeMode.ALTITUDE_CLAMP_TO_GROUND);
-		placemark.setGeometry(kmlPoint);
-		
-		// configure a popup balloon for the placemark
-		final GEHtmlStringBalloon balloon = ge.createHtmlStringBalloon("MyBalloon1");
-		balloon.setContentString("This is a test");
-		balloon.setFeature(placemark);
-		ge.getFeatures().appendChild(placemark);
-		
-		// give the map 2 seconds to pan and then show the balloon
-		Timer timer = new Timer(){
-			@Override
-			public void run() {
-				earth.getGEPlugin().setBalloon(balloon);
-			}
-		};
-		timer.schedule(2000);
-		
 		// look at the placemark
 		KmlLookAt lookAt = ge.getView().copyAsLookAt(KmlAltitudeMode.ALTITUDE_RELATIVE_TO_GROUND);
-		lookAt.setLatitude(kmlPoint.getLatitude());
-		lookAt.setLongitude(kmlPoint.getLongitude());
+		lookAt.setLatitude(34.73D);
+		lookAt.setLongitude(-86.59D);
 		lookAt.setRange(500000D);		
 		ge.getView().setAbstractView(lookAt);
 		
 		//Popup a window
-		showSmartGwtWindow();
-		
-		
-		// move the placemark once every second
-		Timer t = new Timer() {
-			@Override
-			public void run() {
-				KmlObject obj = earth.getGEPlugin().getElementById(placemarkId);				
-				
-				KmlPlacemark placemark =  (KmlPlacemark)obj;
-				KmlPoint point = (KmlPoint)placemark.getGeometry();
-				point.setLatitude(point.getLatitude()+.1D);
-				
-				
-			}
-		};
-		t.scheduleRepeating(1000);
+		showSmartGwtWindow();		
     }
     
 	/**
