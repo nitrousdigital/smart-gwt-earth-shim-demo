@@ -4,3 +4,5 @@ This project demonstrates how a SmartGWT window can be displayed in-front of the
 This demo makes use of [SmartGWT](http://code.google.com/p/smartgwt/) and [Gwt-Earth-3](https://github.com/nitrousdigital/gwt-earth-3).
 
 The demo can be viewed [here](http://smart-gwt-earth-shim-demo.appspot.com/).
+
+![screenshot](https://raw.githubusercontent.com/nitrousdigital/smart-gwt-earth-shim-demo/master/doc/screenshot.png)
